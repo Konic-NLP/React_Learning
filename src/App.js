@@ -16,12 +16,15 @@ export default function App() {
     <div>
       <h1> {advice}</h1>
       <button onClick={getAdvice}>Get advice </button>
+
       <Message count={count} />
-    </div>
+      {/* // use the props, refer to the second function */}
+    </div> // return the JSX
   );
 }
 
 function Message(props) {
+  // another function and call with props
   return (
     <p>
       You have read <strong>{props.count}</strong> pirce of advice
