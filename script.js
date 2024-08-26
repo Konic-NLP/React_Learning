@@ -138,54 +138,116 @@ const data = [
 function getBooks() {
   return data;
 }
-
+/*
 function getBook(id) {
   return data.find((d) => d.id === id);
 }
 // destructing
 
-const book = getBook(2);
-console.log(book);
+// const book = getBook(2);
+// console.log(book);
 // const title = book.title;
 // const author = book.author
-const { title, author, pages, publicationDate, genres, hasMovieAdaptation } =
-  book;
+// const { title, author, pages, publicationDate, genres, hasMovieAdaptation } =
+//   book;
 
-console.log(author, title, genres);
-genres;
+// console.log(author, title, genres);
+// genres;
 // const primaryGenre = genres[0]
 // const secondGENRE =   genres[1]
-const [primaryGenre, secondGenre, ...otherGenres] = genres; // ... means rest . must be at the end
-console.log(primaryGenre, secondGenre, otherGenres);
-const newGenres = [...genres, "epick fantasy"]; // unpacking the list
-const getYear = (str) => str.split("-")[0];
-const updatedBook = {
-  ...book, // spread has to be the first argument
-  moviePublicationDate: "2001-12-19", // add new property
-  pages: 1210, //overwrite existing values
-};
-updatedBook;
+// const [primaryGenre, secondGenre, ...otherGenres] = genres; // ... means rest . must be at the end
+// console.log(primaryGenre, secondGenre, otherGenres);
+// const newGenres = [...genres, "epick fantasy"]; // unpacking the list
+// const getYear = (str) => str.split("-")[0];
+// const updatedBook = {
+//   ...book, // spread has to be the first argument
+//   moviePublicationDate: "2001-12-19", // add new property
+//   pages: 1210, //overwrite existing values
+// };
+// updatedBook;
 
-const summary = `${title}, a ${pages}--page long book, was written by ${author} i and published in ${getYear(
-  publicationDate
-)}, this book has ${hasMovieAdaptation ? "" : "not"} been adapted `; // using template to refer the arguments} `;
-summary;
+// const summary = `${title}, a ${pages}--page long book, was written by ${author} i and published in ${getYear(
+//   publicationDate
+// )}, this book has ${hasMovieAdaptation ? "" : "not"} been adapted `; // using template to refer the arguments} `;
+// summary;
 
-const pageRange = pages > 1000 ? "over a thousand" : "less than 1000 pages";
-pageRange;
+// const pageRange = pages > 1000 ? "over a thousand" : "less than 1000 pages";
+// pageRange;
 
 // function getYear(str){
 //   return str.split("-")[0]
 // }
-console.log(getYear(publicationDate));
+// console.log(getYear(publicationDate));
 
 //&& use for if else
 // || set for default value, the second value would be used if the first value is false
 
-console.log(book.reviews.librarything.reviewsCount);
-const countWrong = book.reviews.librarything.reviewsCount || "no date";
+// console.log(book.reviews.librarything.reviewsCount);
+// const countWrong = book.reviews.librarything.reviewsCount || "no date";
 
-const count = book.reviews.librarything.reviewsCount ?? "no data"; // avoid 0 is fALSE
+// const count = book.reviews.librarything.reviewsCount ?? "no data"; // avoid 0 is fALSE
 
-book.reviews.goodreads?.reviewsCount ?? 0; // ? at the end of variable to try not catch the property then use ?? set a default value
-count;
+// book.reviews.goodreads?.reviewsCount ?? 0; // ? at the end of variable to try not catch the property then use ?? set a default value
+// count;
+*/
+
+const books = getBooks();
+const titles = books.map((book) => book.title);
+titles;
+
+const essentialData = books.map((book) => ({
+  title: book.title,
+  author: book.author,
+}));
+essentialData;
+const longBooks = books
+  .filter((book) => book.pages > 500)
+  .filter((book) => book.hasMovieAdaptation);
+longBooks;
+const adventureBooks = books
+  .filter((books) => books.genres.includes("adventure"))
+  .map((book) => book.title);
+adventureBooks;
+const pagesAllBooks = books.reduce((sum, book) => sum + book.pages, 0);
+pagesAllBooks;
+const arr = [3, 7, 1, 9, 6];
+const sorted = arr.slice().sort((a, b) => b - a);
+arr;
+sorted;
+const sortedByPages = books.slice().sort((a, b) => b.pages - a.pages);
+sortedByPages;
+
+// 1) Add book object to array
+const newBook = {
+  id: 6,
+  title: "Harry Potter and the Chamber of Secrets",
+  author: "J.K.Rowling",
+};
+
+const booksAferAdd = [...books, newBook];
+booksAferAdd;
+// 2) Delete book object from array
+const booksAfterDelete = booksAferAdd.filter((book) => book.id !== 3);
+booksAfterDelete;
+
+// 3) Update book object in the array
+
+const booksAfterUpdate = booksAfterDelete.map((book) =>
+  book.id === 1 ? { ...book, pages: 1210 } : book
+);
+booksAfterUpdate;
+// fetch("https://jsonplaceholder.typicode.com/todos")
+//   .then((res) => res.json())
+//   .then((data) => console.log(data));
+
+// console.log("jonas");
+
+async function getTodos() {
+  const res = await fetch("https://jsonplaceholder.typicode.com/todos");
+  const data = await res.json();
+  console.log(data);
+  return data;
+}
+const todos = getTodos();
+console.log(todos);
+console.log("jonas");
