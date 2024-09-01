@@ -49,18 +49,20 @@ function FlashCards() {
     setSelectedID(id !== selectedId ? id : null); // changing the state by passing the prop
   }
   return (
-    <div className="flashcards">
-      {questions.map((question) => (
-        <div
-          key={question.id}
-          onClick={() => handleClick(question.id)}
-          className={question.id === selectedId ? "selected" : ""}
-        >
-          <p>
-            {question.id === selectedId ? question.answer : question.question}
-          </p>
-        </div>
-      ))}
-    </div>
+    <>
+      <div className="flashcards">
+        {questions.map((question) => (
+          <div
+            key={question.id}
+            onClick={() => handleClick(question.id)}
+            className={question.id === selectedId ? "selected" : ""}
+          >
+            <p>
+              {question.id === selectedId ? question.answer : question.question}
+            </p>
+          </div>
+        ))}
+      </div>
+    </>
   );
 }
