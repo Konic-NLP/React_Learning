@@ -5,11 +5,15 @@ const initialItems = [
   { id: 2, description: "Socks", quantity: 12, packed: true },
 ];
 export default function App() {
+  const [items, setItems] = useState([]); // empty array
+  function handleAddedItems(item) {
+    setItems((items) => [...items, item]);
+  }
   return (
     <div className="app">
       <Logo />
-      <Form />
-      <PackingList />
+      <Form onAddItems={handleAddedItems} />
+      <PackingList items={items} />
       <Stats />
     </div>
   );
@@ -19,9 +23,10 @@ function Logo() {
   return <h1> 🌴 Far Away 👜</h1>;
 }
 
-function Form() {
+function Form({ onAddItems }) {
   const [description, setDescription] = useState("");
   const [quantity, setQuantity] = useState(1);
+
   function handleSubmit(e) {
     e.preventDefault(); // not reload the page, for single page application
     if (!description) return; // if no description input and submit, should not continue the follow code,
@@ -34,6 +39,7 @@ function Form() {
       id: Date.now(),
     };
     console.log(newItem);
+    onAddItems(newItem);
     setDescription(""); // after creating new Item set the value to the default one
     setQuantity(1);
   }
@@ -61,11 +67,11 @@ function Form() {
   );
 }
 
-function PackingList() {
+function PackingList({ items }) {
   return (
     <div className="list">
       <ul>
-        {initialItems.map((item) => (
+        {items.map((item) => (
           <Item item={item} key={item.id} />
         ))}
       </ul>
